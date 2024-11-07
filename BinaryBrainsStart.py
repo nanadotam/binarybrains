@@ -25,4 +25,4 @@ def quantified_statement(user_input):
 
 #function to work on predicates 
 def predicates(user_input):
-    
+    pass
