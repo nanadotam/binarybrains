@@ -1,17 +1,12 @@
-print("hello world")
-
-print("bye bye")
-
-
 
 # predicates_and_quantifiers.py
 
 def get_user_statement():
     """
-    Prompt the user to enter a quantified statement about students in this class.
+    Prompt the user to enter a quantified statement.
     Example: "Some students in this class are from Australia."
     """
-    print("Enter a quantified statement about students in this class:")
+    print("Enter a quantified statement:")
     statement = input("> ")
     return statement
 
