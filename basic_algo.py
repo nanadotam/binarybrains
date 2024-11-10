@@ -118,11 +118,12 @@ def main():
     print(f"Logical Expression: {domain_specific_translation}")
 
     print("\n### General Solution ###")
-    general_translation = translate_to_logic(statement, "people")
+    general_translation = translate_to_logic(statement, "all people")
     print(f"Logical Expression: {general_translation}")
 
 if __name__ == "__main__":
     main()
+
 # Example usage
 # statement = "All students in the school are happy"
 # domain = "class"
