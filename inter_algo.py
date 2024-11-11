@@ -1,3 +1,12 @@
+"""
+Changes to be made:
+- Universal uses -> (the implied), existential uses ∧ (and)
+- Add a menu interface (e.g. Press 1. to do something, Press 2. to do something else)
+
+"""
+
+
+
 def identify_quantifier(statement):
     quantifiers = {
         "all": "∀", 
