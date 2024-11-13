@@ -1,8 +1,10 @@
+import argparse
+
 """
 Changes to be made:
-- Universal uses -> (the implied), existential uses ∧ (and)
 - Add a menu interface (e.g. Press 1. to do something, Press 2. to do something else)
-
+- Translate the statement from not to "not all students" to "∃ P(x) where P(x) = 'not all students'"
+e.g. "none of the students like school" = "∃ P(x) where P(x) = 'none of the students like school" = "all students do not like school" 
 """
 
 
@@ -60,30 +62,86 @@ def translate_to_general_logic(statement, domain):
     predicate_variable = "P(x)"
     domain_variable = "Q(x)"
 
-    general_logical_expression = f"{quantifier_symbol} {domain_variable} ∧ {predicate_variable}, where {domain_variable} = '{domain}' and {predicate_variable} = '{predicate}'"
+    if quantifier_symbol == "∀":
+        general_logical_expression = f"{quantifier_symbol} {domain_variable} → {predicate_variable}, where {domain_variable} = '{domain}' and {predicate_variable} = 'x {predicate}'"
+    elif quantifier_symbol == "∃":
+        general_logical_expression = f"{quantifier_symbol} {domain_variable} ∧ {predicate_variable}, where {domain_variable} = '{domain}' and {predicate_variable} = 'x {predicate}'"
+
 
     return general_logical_expression
 
 def main():
+    print("Welcome to the Binary Brain Quantified Statement Translator!")
+    def menu():
+        print("Menu:")
+        print("1. Translate to domain-specific logic")
+        print("2. Translate to general logic")
+        print("3. Exit")
+
+    def handle_choice(choice, statement, domain):
+        if choice == '1':
+            print("\nDomain Specific Solution")
+            print(f"Domain: {domain}")
+            domain_specific_translation = translate_to_logic(statement, domain)
+            print(f"Logical Expression: {domain_specific_translation}")
+        elif choice == '2':
+            print("\nGeneral Solution")
+            general_translation = translate_to_general_logic(statement, domain)
+            print(f"Logical Expression: {general_translation}")
+        elif choice == '3':
+            print("Exiting...")
+            exit()
+        else:
+            print("Invalid choice. Please select a valid option.")
+
+    parser = argparse.ArgumentParser(description="Binary Brain Quantified Statement Translator")
+    parser.add_argument('-s', '--statement', type=str, help='Quantified statement to translate')
+    parser.add_argument('-d', '--domain', type=str, help='Domain of the statement')
+    args = parser.parse_args()
+
+    if args.statement and args.domain:
+        statement = args.statement
+        domain = args.domain
+        print("\nDomain Specific Solution")
+        print("*" * 50)
+        print(f"Domain: {domain}")
+        domain_specific_translation = translate_to_logic(statement, domain)
+        print(f"Logical Expression: {domain_specific_translation}")
+
+        print("\nGeneral Solution")
+        print("*" * 50)
+        general_translation = translate_to_general_logic(statement, domain)
+        print(f"Logical Expression: {general_translation}")
+    else:
+        while True:
+            menu()
+            choice = input("Enter your choice: ")
+            statement = input("Enter a quantified statement: ")
+            domain = input("Enter the domain of the statement: ")
+            handle_choice(choice, statement, domain)
+
+
     LOGICAL_OPERATORS = {
         "and": "∧",
         "or": "∨",
         "not": "¬",
         "some": "∃",
-        "all": "∀"
+        "all": "∀",
+        "implies": "→"
     }
 
-    statement = input("Enter a quantified statement: ")
-    domain = input("Enter the domain of the statement: ")
+    # different ways of expressing implication (→)
+    # "q unless p" is equivalent to "p → q"
+    # "q if p" is equivalent to "p → q"
+    # "p only if q" is equivalent to "p → q"
+    # "p implies q" is equivalent to "p → q"
+    # "if p then q" is equivalent to "p → q"
+    # "p is sufficient for q" is equivalent to "p → q"
+    # "q is necessary for p" is equivalent to "p → q"
+    # "p is a sufficient condition for q" is equivalent to "p → q"
+    # "q is a necessary condition for p" is equivalent to "p → q"
 
-    print("\n### Domain Specific Solution ###")
-    print(f"Domain: {domain}")
-    domain_specific_translation = translate_to_logic(statement, domain)
-    print(f"Logical Expression: {domain_specific_translation}")
 
-    print("\n### General Solution ###")
-    general_translation = translate_to_general_logic(statement, domain)
-    print(f"Logical Expression: {general_translation}")
 
 if __name__ == "__main__":
     main()
