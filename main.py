@@ -1,4 +1,5 @@
 import argparse
+import time
 
 
 ''' QUESTION | Predicates and Quantifiers
@@ -93,7 +94,7 @@ def translate_to_logic(statement, domain):
 
     # Representing predicate as P(x)
     predicate_variable = "P(x)"
-    logical_expression = f"{quantifier_symbol} {predicate_variable} where {predicate_variable} = '{predicate}'"
+    logical_expression = f"{quantifier_symbol} {predicate_variable} where {predicate_variable} = 'x {predicate}'"
 
     return logical_expression
 
@@ -129,28 +130,47 @@ def translate_to_general_logic(statement, domain):
 
     return general_logical_expression
 
+
+def print_welcome_banner():
+    banner = """
+    =========================================
+    |       WELCOME TO THE BINARY BRAINS    |
+    |      QUANTIFIED STATEMENT TRANSLATOR  |
+    =========================================
+    """
+    print(banner)
+
 def print_menu():
-    """
-    Displays a menu with options for translating statements to different types of logic.
-    """
-    print("\n=== Binary Brain Quantified Statement Translator ===")
+    print("\n========== Main Menu ==========")
     print("1. Translate to domain-specific logic")
     print("2. Translate to general logic")
-    print("3. Exit")
+    print("3. Help")
+    print("4. Exit")
+    print("=================================")
 
+def print_help():
+    help_text = """
+    ================== HELP MENU ===================
+    1. Translate to domain-specific logic:
+        - Enter a quantified statement (e.g., "All students love math")
+        - Provide a domain (e.g., "students")
+    
+    2. Translate to general logic:
+        - Similar to option 1, but translates to a more general logical form.
+
+    3. Help:
+        - Displays this help menu.
+
+    4. Exit:
+        - Exits the program.
+
+    Example Statement: "Some students love ice cream"
+    Example Domain: "students"
+    ================================================
+    """
+    print(help_text)
 
 def handle_choice(choice, statement, domain):
-    """
-    Handles the user's choice and performs the corresponding action.
-
-    Parameters:
-    choice (str): The user's choice, which determines the action to be taken.
-    statement (str): The logical statement to be processed.
-    domain (str): The domain to be used for processing the logical statement.
-
-    Returns:
-    None
-    """
     if choice == '1':
         print("\nDomain Specific Solution")
         print(f"Domain: {domain}")
@@ -159,7 +179,11 @@ def handle_choice(choice, statement, domain):
         print("\nGeneral Solution")
         print(f"Logical Expression: {translate_to_general_logic(statement, domain)}")
     elif choice == '3':
-        print("Exiting... Goodbye!")
+        print_help()
+    elif choice == '4':
+        print("Exiting...")
+        time.sleep(1)
+        print("Goodbye!")
         exit()
     else:
         print("Invalid choice. Please select a valid option.")
@@ -170,22 +194,39 @@ def main():
     parser.add_argument('-d', '--domain', type=str, help='Domain of the statement')
     args = parser.parse_args()
 
+    # Check if command-line arguments are provided
     if args.statement and args.domain:
+        print_welcome_banner()
         print("\nDomain Specific Solution")
         print(f"Domain: {args.domain}")
         print(f"Logical Expression: {translate_to_logic(args.statement, args.domain)}")
         print("\nGeneral Solution")
         print(f"Logical Expression: {translate_to_general_logic(args.statement, args.domain)}")
     else:
+        # Enter interactive mode
+        print_welcome_banner()
         while True:
             print_menu()
             choice = input("Enter your choice: ").strip()
-            statement = input("Enter a quantified statement: ").strip()
-            domain = input("Enter the domain of the statement: ").strip()
-            if statement and domain:
-                handle_choice(choice, statement, domain)
+            if choice in ['1', '2']:
+                statement = input("Enter a quantified statement: ").strip()
+                domain = input("Enter the domain of the statement: ").strip()
+                if statement and domain:
+                    handle_choice(choice, statement, domain)
+                    # Prompt for returning to main menu or exiting
+                    while True:
+                        next_step = input("\nEnter '1' to return to main menu, '2' to exit: ").strip()
+                        if next_step == '1':
+                            break  # Go back to main menu
+                        elif next_step == '2':
+                            print("Exiting... Goodbye!")
+                            exit()
+                        else:
+                            print("Invalid input. Please enter '1' to return to main menu or '2' to exit.")
+            elif choice in ['3', '4']:
+                handle_choice(choice, '', '')
             else:
-                print("Statement and domain cannot be empty. Please try again.")
+                print("Invalid input. Please choose a valid option.")
 
 if __name__ == "__main__":
     main()
