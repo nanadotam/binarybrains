@@ -1,60 +1,112 @@
-# Quantified Statement Translator
+# Binary Brains Quantified Statement Translator
 
-This is a command-line interface (CLI) tool for translating quantified statements into logical expressions using predicates, quantifiers, and logical connectives. The program supports translations for domain-specific and general logic expressions.
+This is a command-line interface (CLI) tool designed to translate quantified statements into logical expressions using predicates, quantifiers, and logical connectives. The tool supports translations for domain-specific and general logical expressions with an easy-to-use menu interface.
+
+---
 
 ## Features
 
-- Translate quantified statements with user-defined domains.
-- User-friendly menu interface with ASCII art banners.
-- Help menu with detailed usage instructions.
-- Graceful handling of input errors.
+- **Translation Capabilities**: Transform quantified natural language statements into logical expressions.
+- **Domain-Specific and General Logic**: Translate within a specified domain or generalize to broader logic.
+- **Interactive Menu**: User-friendly CLI menu with ASCII art for an engaging experience.
+- **Help and Documentation**: Built-in help menu for detailed usage guidance.
+- **Error Handling**: Graceful handling of invalid inputs with appropriate messages.
+
+---
+
+## Installation
+
+### Prerequisites
+
+- Python 3.6 or higher
+
+### Cloning the Repository
+
+To get started, clone the repository using the following command:
+
+```bash
+git clone https://github.com/nanadotam/binarybrains.git
+cd binarybrains
+```
+
+---
 
 ## Usage
 
-Run the program using Python:
+### Running the Program
+
+To run the program, execute the following command:
 
 ```bash
 python main.py
+```
 
-Main Menu Options
+### Main Menu Options
 
-	1.	Translate to Domain-Specific Logic
-Enter a quantified statement (e.g., “All students love math”) and a domain (e.g., “students”). The program will generate a logical expression for the given statement within the specified domain.
-	2.	Translate to General Logic
-Similar to option 1, but translates the input into a general logical form that works over a broader domain.
-	3.	Help
-Displays a detailed guide on how to use the program.
-	4.	Exit
-Exits the program.
+Upon running the program, you will be presented with a main menu. Here are the available options:
 
-Example Input/Output
+1. **Translate to Domain-Specific Logic**  
+   Enter a quantified statement (e.g., "All students love math") and specify a domain (e.g., "students"). The program will generate a logical expression tailored to the given domain.
 
-Example Statement:
+2. **Translate to General Logic**  
+   Similar to option 1, but the translation applies to a broader domain without focusing on a specific group.
 
-"Some students love ice cream"
+3. **Help**  
+   Displays a comprehensive help guide with usage instructions and examples.
 
-Example Domain:
+4. **Exit**  
+   Exits the program gracefully.
 
-"students"
+### Example Usage
 
-Output (Domain-Specific):
+**Example Input:**
 
-Example translation of 'Some students love ice cream' for domain 'students'.
+```
+Enter your choice: 1
+Enter a quantified statement: Some students love ice cream
+Enter the domain of the statement: students
+```
 
-Output (General Logic):
+**Example Output (Domain-Specific):**
 
-General translation of 'Some students love ice cream' for domain 'students'.
+```
+Domain Specific Solution
+Domain: students
+Logical Expression: ∃ P(x) where P(x) = 'x love ice cream'
+```
 
-Requirements
+**Example Output (General Logic):**
 
-	•	Python 3.6 or higher
+```
+General Solution
+Logical Expression: ∃ Q(x) ∧ P(x), where Q(x) = 'students' and P(x) = 'x love ice cream'
+```
 
-Future Enhancements
+---
 
-	•	Support for more complex predicates and quantifiers.
-	•	Addition of natural language processing capabilities for better input handling.
+## Program Flow
 
-Explanation
+1. **Startup**: Displays a welcome banner with the main menu.
+2. **User Selection**: User selects an option from the main menu (e.g., translating logic, accessing help, etc.).
+3. **Translation Process**: Based on user input, the tool translates the quantified statement.
+4. **Prompt for Next Steps**: After completing a translation, users are prompted with:
+   ```
+   Enter '1' to return to the main menu, '2' to exit.
+   ```
+5. **Return or Exit**: Users can return to the main menu or exit the program based on their input.
 
-	•	The README.md provides a comprehensive overview of your project, including usage instructions, examples, and requirements.
-	•	The requirements.txt is minimal since there are no external dependencies currently needed. If you add external libraries in the future, you can list them here (e.g., colorama if you reintroduce it).
+---
+
+## Requirements
+
+- **Python 3.6 or higher**
+- No external dependencies required as of now.
+---
+
+## Help Menu
+
+The built-in help menu provides the following:
+
+- Descriptions and examples of each main menu option.
+- Instructions on entering quantified statements and specifying domains.
+
