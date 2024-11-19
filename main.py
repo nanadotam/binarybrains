@@ -154,7 +154,8 @@ def print_menu():
 def print_help():
     help_text = """
     ================== HELP MENU ===================
-    1. Translate to a quantified logic:
+    1. Translate to a quantified 
+    logic:
         - Enter a quantified statement (e.g., "All students love math")
         - Provide a domain (e.g., "students")
     
