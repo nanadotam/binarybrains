@@ -37,15 +37,15 @@ def identify_quantifier(statement):
             Returns None if no quantifier is found.
     """
     quantifiers = {
-        "all": "∀", 
-        "everyone": "∀", 
-        "every": "∀", 
-        "some": "∃", 
-        "at least one": "∃", 
-        "there is one": "∃", 
-        "there exists": "∃", 
-        "someone": "∃", 
-        "any": "∃"
+        "all": "∀x", 
+        "everyone": "∀x", 
+        "every": "∀x", 
+        "some": "∃x", 
+        "at least one": "∃x", 
+        "there is one": "∃x", 
+        "there exists": "∃x", 
+        "someone": "∃x", 
+        "any": "∃x"
     }
     for word in statement.split():
         if word.lower() in quantifiers:
@@ -123,14 +123,17 @@ def translate_to_general_logic(statement, domain):
     predicate_variable = "P(x)"
     domain_variable = "Q(x)"
 
-    if quantifier_symbol == "∀":
+    if quantifier_symbol == "∀x":
         general_logical_expression = f"{quantifier_symbol} {domain_variable} → {predicate_variable}, where {domain_variable} = '{domain}' and {predicate_variable} = 'x {predicate}'"
-    elif quantifier_symbol == "∃":
+    elif quantifier_symbol == "∃x":
         general_logical_expression = f"{quantifier_symbol} {domain_variable} ∧ {predicate_variable}, where {domain_variable} = '{domain}' and {predicate_variable} = 'x {predicate}'"
 
 
     return general_logical_expression
 
+
+import time
+import argparse
 
 def print_welcome_banner():
     banner = """
@@ -143,21 +146,18 @@ def print_welcome_banner():
 
 def print_menu():
     print("\n========== Main Menu ==========")
-    print("1. Translate to domain-specific logic")
-    print("2. Translate to general logic")
-    print("3. Help")
-    print("4. Exit")
+    print("1. Translate to a quantified logic")
+    print("2. Help")
+    print("3. Exit")
     print("=================================")
 
 def print_help():
     help_text = """
     ================== HELP MENU ===================
-    1. Translate to domain-specific logic:
+    1. Translate to a quantified logic:
         - Enter a quantified statement (e.g., "All students love math")
         - Provide a domain (e.g., "students")
     
-    2. Translate to general logic:
-        - Similar to option 1, but translates to a more general logical form.
 
     3. Help:
         - Displays this help menu.
@@ -176,12 +176,10 @@ def handle_choice(choice, statement, domain):
         print("\nDomain Specific Solution")
         print(f"Domain: {domain}")
         print(f"Logical Expression: {translate_to_logic(statement, domain)}")
+
     elif choice == '2':
-        print("\nGeneral Solution")
-        print(f"Logical Expression: {translate_to_general_logic(statement, domain)}")
-    elif choice == '3':
         print_help()
-    elif choice == '4':
+    elif choice == '3':
         print("Exiting...")
         time.sleep(1)
         print("Goodbye!")
@@ -209,25 +207,30 @@ def main():
         while True:
             print_menu()
             choice = input("Enter your choice: ").strip()
-            if choice in ['1', '2']:
-                statement = input("Enter a quantified statement: ").strip()
-                domain = input("Enter the domain of the statement: ").strip()
-                if statement and domain:
-                    handle_choice(choice, statement, domain)
-                    # Prompt for returning to main menu or exiting
-                    while True:
-                        next_step = input("\nEnter '1' to return to main menu, '2' to exit: ").strip()
+            if choice == '1':
+                # Loop for entering a statement and domain
+                while True:
+                    statement = input("Enter a quantified statement: ").strip()
+                    domain = input("Enter the domain of the statement: ").strip()
+                    if statement and domain:
+                        handle_choice(choice, statement, domain)
+                        # Prompt for entering another statement or returning to the main menu
+                        next_step = input("\nEnter '1' to enter another statement, '2' to return to the main menu: ").strip()
                         if next_step == '1':
-                            break  # Go back to main menu
+                            continue  # Allow the user to enter another statement
                         elif next_step == '2':
-                            print("Exiting... Goodbye!")
-                            exit()
+                            break  # Break and go back to the main menu
                         else:
-                            print("Invalid input. Please enter '1' to return to main menu or '2' to exit.")
-            elif choice in ['3', '4']:
+                            print("Invalid input. Please enter '1' to enter another statement or '2' to return to the main menu.")
+                    else:
+                        print("Statement and domain cannot be empty.")
+            elif choice == '2':
+                handle_choice(choice, '', '')
+            elif choice == '3':
                 handle_choice(choice, '', '')
             else:
                 print("Invalid input. Please choose a valid option.")
 
 if __name__ == "__main__":
     main()
+1
