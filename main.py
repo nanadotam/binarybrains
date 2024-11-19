@@ -18,7 +18,7 @@ You will provide two solutions:
 
 """
 Changes to be made:
-- Add a menu interface (e.g. Press 1. to do something, Press 2. to do something else)
+- Add a menu interface (e.g. Press 1. to do something, Press 2. to do something else) ✅
 - Translate the statement from not to "not all students" to "∃ P(x) where P(x) = 'not all students'"
 e.g. "none of the students like school" = "∃ P(x) where P(x) = 'none of the students like school" = "all students do not like school" 
 """
@@ -39,6 +39,7 @@ def identify_quantifier(statement):
     quantifiers = {
         "all": "∀", 
         "everyone": "∀", 
+        "every": "∀", 
         "some": "∃", 
         "at least one": "∃", 
         "there is one": "∃", 
